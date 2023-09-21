@@ -4,7 +4,7 @@ import {View, Text, StyleSheet} from 'react-native'
 const Transportation: React.FC = () => {
    return (
       <View>
-         <Text>DebtPayments</Text>
+         <Text>Transportation</Text>
       </View>
    )
 }

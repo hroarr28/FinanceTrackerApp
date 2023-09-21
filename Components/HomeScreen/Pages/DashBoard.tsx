@@ -7,7 +7,7 @@ import {
    Image,
    TouchableOpacity,
 } from 'react-native'
-import commonStyles from '../StyleSheet/StyleSheet'
+import commonStyles from '../StyleSheet/CommonStyles'
 import {Dimensions, SafeAreaView} from 'react-native'
 import {useState} from 'react'
 import {useNavigation} from '@react-navigation/native'
@@ -24,7 +24,7 @@ const gap = 10
 const itemWidth = (width - gap * (itemPerRow - 1)) / itemPerRow
 
 const DashBoard: React.FC<DashBoardProps> = ({income}) => {
-   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+   const [selectedCategory, setSelectedCategory] = useState<string>('')
    const [categoryIsSelected, setCategoryIsSelected] = useState<boolean>(false)
    const navigation = useNavigation()
 
@@ -85,24 +85,11 @@ const DashBoard: React.FC<DashBoardProps> = ({income}) => {
       },
    ]
 
-   const setCatergory = (itemId: string) => {
-      setSelectedCategory(itemId)
-   }
+   //  const setCatergory = (itemId: string) => {
+   //     setSelectedCategory(itemId)
+   //  }
 
-   const handleNavigation = () => {
-      if (selectedCategory) {
-         setTimeout(() => {
-            navigation.navigate(selectedCategory)
-            setCategoryIsSelected(false)
-         }, 500)
-      }
-   }
-
-   useEffect(() => {
-      handleNavigation()
-   }, [selectedCategory])
-
-   console.log(typeof selectedCategory)
+   console.log(selectedCategory)
 
    return (
       <SafeAreaView style={styles.container}>
@@ -111,25 +98,26 @@ const DashBoard: React.FC<DashBoardProps> = ({income}) => {
                <Text style={commonStyles.text}>Monthly Balance Remaining</Text>
                <Text style={[styles.incomeText, balanceColor()]}>{income}</Text>
             </View>
+
             {items.map(item => (
-               <TouchableOpacity
-                  key={item.id}
-                  style={[
-                     styles.singleItem,
-                     {backgroundColor: item.backgroundColor},
-                  ]}
-                  onPress={() => {
-                     setCatergory(item.title)
-                     handleNavigation()
-                  }}>
-                  <Text style={styles.title}>{item.title}</Text>
-                  <Image
-                     style={styles.images}
-                     source={{
-                        uri: item.image,
-                     }}
-                  />
-               </TouchableOpacity>
+               <View key={item.id} style={styles.wrapper}>
+                  <TouchableOpacity
+                     key={item.id}
+                     style={[styles.singleItem]}
+                     onPress={() => {
+                        const screenName = item.title.replace(/\s/g, '')
+                        navigation.navigate(screenName)
+                        setCategoryIsSelected(true)
+                     }}>
+                     <Text style={styles.title}>{item.title}</Text>
+                     <Image
+                        style={styles.images}
+                        source={{
+                           uri: item.image,
+                        }}
+                     />
+                  </TouchableOpacity>
+               </View>
             ))}
          </ScrollView>
       </SafeAreaView>
@@ -141,10 +129,11 @@ const styles = StyleSheet.create({
    grid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      justifyContent: 'space-around',
+      justifyContent: 'center',
       alignItems: 'center',
-      padding: 25,
-      gap: 10,
+      marginVertical: 10,
+      marginHorizontal: 10,
+      gap: 20,
    },
    header: {
       flexDirection: 'column',
@@ -159,13 +148,12 @@ const styles = StyleSheet.create({
       textAlign: 'center',
    },
    singleItem: {
-      width: 160,
-      height: 100,
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: '#02457A',
       borderRadius: 10,
-      marginVertical: 10,
+      marginVertical: 5,
+      padding: 10,
    },
    title: {
       display: 'flex',
@@ -175,12 +163,18 @@ const styles = StyleSheet.create({
       color: '#D6E8EE',
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
-      marginTop: 5,
+      marginTop: 0,
    },
    images: {
       width: 50,
       height: 50,
       marginVertical: 5,
+   },
+   wrapper: {
+      width: '45%',
+      height: '25%',
+      backgroundColor: '#02457A',
+      borderRadius: 10,
    },
 })
 

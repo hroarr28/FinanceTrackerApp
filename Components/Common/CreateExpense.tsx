@@ -1,12 +1,10 @@
 import React from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 
-const Food: React.FC = () => {
+const CreateExpense: React.FC = () => {
    return (
       <View>
-         <Text>Food/Meals Out</Text>
+         <Text>Create Expense</Text>
       </View>
    )
 }
-
-export default Food

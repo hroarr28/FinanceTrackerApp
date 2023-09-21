@@ -4,7 +4,7 @@ import {View, Text, StyleSheet} from 'react-native'
 const Savings: React.FC = () => {
    return (
       <View>
-         <Text>DebtPayments</Text>
+         <Text>Savings and Investments</Text>
       </View>
    )
 }

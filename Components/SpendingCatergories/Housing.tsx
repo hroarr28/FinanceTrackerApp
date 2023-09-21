@@ -1,20 +1,16 @@
 import react from 'react'
-import { View, Text, StyleSheet, Button } from "react-native";
+import {View, Text, StyleSheet} from 'react-native'
 
-const Housing = () => {
-    return (
-        <div>
-            <Button title="Create Expense" />
-        </div>
-    )
+const Housing: React.FC = () => {
+   return (
+      <View>
+         <Text> Housing</Text>
+      </View>
+   )
 }
 
 const styles = StyleSheet.create({
-    container: {
-
-    },
-
-});
+   container: {},
+})
 
 export default Housing
-
